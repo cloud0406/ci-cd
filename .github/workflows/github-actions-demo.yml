@@ -29,16 +29,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # 3. 의존성 설치
+      # 3. `my-app` 디렉토리로 이동하여 의존성 설치
       - name: Install dependencies
+        working-directory: ./my-app
         run: npm install
 
       # 4. 테스트 및 커버리지 리포트 생성
       - name: Run tests with coverage
+        working-directory: ./my-app
         run: npm test -- --coverage
 
       # 5. Codecov에 커버리지 리포트 업로드
       - name: Upload coverage reports to Codecov
+        working-directory: ./my-app
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
